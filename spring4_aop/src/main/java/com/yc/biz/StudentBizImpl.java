@@ -55,7 +55,7 @@ public class StudentBizImpl implements StudentBiz {
     @Override
     public void find(String name) {
         System.out.println("-----------业务层-----------");
-        System.out.println("业务层查找用户名" + name);
+        System.out.println("业务层查找用户名:" + name);
         studentDao.find(name);
         Random r = new Random();
         try {

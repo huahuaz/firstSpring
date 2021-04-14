@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Aspect     //切面类: 你要增强的功能写到这里
 @Component   //IOC注解， 以实现让spring托管的功能
-@Order(value = 1)
+@Order(value = 100)
 public class LogAspect {
 
     //切入点的声明  pointcut signature
@@ -42,7 +42,7 @@ public class LogAspect {
     //          throws-pattern?)
 
     //增加的声明
-    @Before("com.yc.aspect.LogAspect.add()")
+    //@Before("com.yc.aspect.LogAspect.add()")
     public void log() {
         System.out.println("=======前置增强的日志=======");
         Date d = new Date();
@@ -52,7 +52,7 @@ public class LogAspect {
         System.out.println("=======前置增强的日志结束=======");
     }
 
-    @After("com.yc.aspect.LogAspect.addAndUpdate()")
+    //@After("com.yc.aspect.LogAspect.addAndUpdate()")
     public void bye(JoinPoint jp) {    //spring是一个ioc容器，它可以使用di将程序运行的信息注入 joinpoint
         System.out.println("===========bye=========");
         //连接点中的所有信息
@@ -71,14 +71,15 @@ public class LogAspect {
         System.out.println("=========bye=========");
     }
 
-    @Around("find()")
+
+    @Around("execution(* com.yc.biz.StudentBizImpl.find*(..))")
     public Object compute(ProceedingJoinPoint pjp) throws Throwable {
-        System.out.println("进到增强了...");
+        System.out.println("=====compute===进到增强了...");
         long start = System.currentTimeMillis();
         Object retVal = pjp.proceed();
         long end = System.currentTimeMillis();
+        System.out.println("=====compute退出增强了...");
         System.out.println("find运行时间:" + (end - start));
-        System.out.println("退出增强了...");
         return retVal;
     }
 }
