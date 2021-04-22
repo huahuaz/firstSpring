@@ -1,0 +1,47 @@
+  	<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+1。 创建数据源( 是否采用联接池, c3p0,dbcp,druid,... )
+    @Bean
+    public DataSource dataSource() throws PropertyVetoException {
+        DataSource ds = new ComboPooledDataSource();
+        ((ComboPooledDataSource) ds).setDriverClass("com.mysql.cj.jdbc.Driver");
+        //如果mysql的版本较高(>=5.5) 就需要修改url.
+        ((ComboPooledDataSource) ds).setJdbcUrl("jdbc:mysql://localhost:3306/testbank?serverTimezone=GMT%2B8");
+        ((ComboPooledDataSource) ds).setUser("root");
+        ((ComboPooledDataSource) ds).setPassword("a");
+        return ds;
+    }
+     
+2.  创建事务管理器. ( 事务管理器的类型, hibernate5,hibernate4,jpa,jdo, jdbc(与mybatis相同) ) 
+    @Bean  // @Bean注解的优先级高于@Component @Service...
+    public TransactionManager DataSourceTransactionManager(DataSource ds) {
+        return new DataSourceTransactionManager(ds);
+    }
+3.  在配置类止加入:
+   @EnableTransactionManagement   //启用事务管理器
+4. 在业务层加入事务注解. 
+    @Transactional   //   传播机制 Propogation    隔离级别 Isolation    ReadOnly  只读  rollbackfor 为什么异常回滚
+                     //    Timeout 事务超时时间
+
+
+--------------------------------------
+1. global , local transaction
+   global ->  JTA
+   local  ->  结合aop实现的事务处理
+2. 事务的特性: 
+   A: atomic 原子性
+   c: consistent 一致性
+   i: isolation 隔离性
+   d: duration  持久性
+3. 数据库的隔离策略及出现的问题
+                         丢失更新    脏读     不可重复读    幻读  
+   read uncommitted         v        x         x	    x
+   read committed           v        v         x            x
+   repeatal                 v        v         v            x
+   serializable             v        v         v            v 
+4. 为什么有这么多的IOC注解? @Service注解完成了什么? 
+
