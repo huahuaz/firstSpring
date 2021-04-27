@@ -1,14 +1,12 @@
-package com.yc.tx.service;
+package com.yc.starter.tx.service;
 
-import com.yc.tx.bean.Accounts;
-import com.yc.tx.bean.OpRecord;
-import com.yc.tx.bean.OpTypes;
-import com.yc.tx.dao.AccountsDao;
-import com.yc.tx.dao.OpRecordDao;
+import com.yc.starter.tx.bean.Accounts;
+import com.yc.starter.tx.bean.OpRecord;
+import com.yc.starter.tx.bean.OpTypes;
+import com.yc.starter.tx.dao.AccountsDao;
+import com.yc.starter.tx.dao.OpRecordDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;

@@ -1,6 +1,8 @@
 #创建mysql库
-create database testBank;
-use testBank;
+create
+database testBank;
+use
+testBank;
 #账号信息表
 create table accounts
 (
@@ -25,13 +27,25 @@ CREATE TRIGGER after_balance_update
     FOR EACH ROW
 BEGIN
     IF (NEW.balance < 0) THEN
-        update accounts set balance=OLD.balance where accountid = OLD.accountid;
-    END IF;
+    update accounts set balance=OLD.balance where accountid = OLD.accountid;
+END IF;
+END;
+
+
+CREATE TRIGGER after_balance_insert
+    after insert
+    ON accounts
+    FOR EACH ROW
+BEGIN
+    IF (NEW.balance < 0) THEN
+    delete from accounts where accountid=OLD.accountid;
+END IF;
 END;
 #插入测试数据测试触发器是否OK
 insert into accounts(balance)
 values (1);
-#更新金额，会发现后台报错.
+#更新金额
+，会发现后台报错.
 update accounts
 set balance=balance - 1
 where accountid = 1;

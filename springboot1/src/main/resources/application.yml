@@ -1,0 +1,15 @@
+server:
+  port: 8081
+  session.timeout: 60000
+  servlet.contextpath: /zhw
+logging:
+  level:
+    root: error
+    com.yc: info
+    org.spring.framework: error
+  file:
+    path: ./logs
+    name: yc.log
+yc:
+  tname: zhw
+  age: 21
