@@ -1,0 +1,23 @@
+server:
+  port: 80
+  session.timeout: 60000
+  servlet.contextpath: /res
+
+logging:
+  level:
+    root: info
+    org.springframework: info
+    com.yc: info
+  file:
+    path: ./logs
+    name: yc_myres.log
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/res?serverTimezone=GMT%2B8
+    username: root
+    password: a
+
+swagger:
+  enabled: true
