@@ -26,9 +26,9 @@ public class ResorderDaoTest {
         ro.setOrdertime(new Timestamp(new Date().getTime()));
         ro.setPs("quick");
         ro.setTel("13825156489");
-        ro.setStatus(OrderStatusEnum.NEW.getCode());
+        ro.setStatus(OrderStatusEnum.NEW.getCode());   //枚举
         ro.setUserid(1);
-        ro = dao.save(ro);
+        ro = dao.save(ro);    //jparepository自动会返回 一个存好的被jpa托管的对象KK
         System.out.println(ro.getRoid());
     }
 }
